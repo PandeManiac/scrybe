@@ -1,0 +1,5 @@
+<Solution>
+  <Folder Name="/src/" />
+  <Project Path="src/Scrybe.Project/Scrybe.Project.csproj" />
+  <Project Path="tests/Scrybe.Project.Tests/Scrybe.Project.Tests.csproj" />
+</Solution>
