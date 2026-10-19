@@ -60,7 +60,7 @@ public sealed class ScryProject
 	/// The graph is null.
 	/// </exception>
 	/// <exception cref="ArgumentException">
-	/// A graph with the same identifier already exists.
+	/// The graph identifier already exists or the graph belongs to a project.
 	/// </exception>
 	public void AddGraph(ScryGraph graph)
 	{
@@ -76,6 +76,14 @@ public sealed class ScryProject
 			}
 		}
 
+		if (graph.IsAttached)
+		{
+			throw new ArgumentException(
+				"Graph is already attached to a project.",
+				nameof(graph));
+		}
+
+		graph.AttachTo(this);
 		_graphs.Add(graph);
 	}
 
@@ -102,6 +110,7 @@ public sealed class ScryProject
 		{
 			if (_graphs[index].Id == graphId)
 			{
+				_graphs[index].DetachFrom(this);
 				_graphs.RemoveAt(index);
 				return true;
 			}
